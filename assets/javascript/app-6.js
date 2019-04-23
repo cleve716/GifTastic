@@ -35,9 +35,7 @@ $(document).on('click', '.feeling', function(event) {
  event.preventDefault();
  var feelingButton = $(this).html();    
 
-  //$("button.feeling").on("click", function() {
-  // var feelingButton = $(this).attr("data-feeling");
-  console.log(feelingButton);
+    console.log(feelingButton);
   
 
 
@@ -55,35 +53,26 @@ $(document).on('click', '.feeling', function(event) {
         console.log(response);
      
         var results = response.data;
-
-        // Looping over every result item
-        for (var i = 0; i < results.length; i++) {
-
-          // Only taking action if the photo has an appropriate rating
-          if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-            // Creating a div for the gif
-            var gifDiv = $("<div>");
-
-            // Storing the result item's rating
-            var rating = results[i].rating;
-
-            // Creating a paragraph tag with the result item's rating
-            //var ratingBox = $("<p>").text("Rating: " + rating);
-
-            // Creating an image tag
-            var emoImage = $("<img>");
-            emoImage.addClass("emo"); 
-
-            // Giving the image tag an src attribute of a proprty pulled off the
-            // result item
-            emoImage.attr("src", results[i].images.fixed_height.url);
-
+        //$("#gifs-appear-here").empty();
+       
+        for (var i = 0; i < results.length; i++) {   // Looping over every result item
+          
+          if (results[i].rating !== "r" && results[i].rating !== "pg-13") { //only continue if g or pg
+            var gifDiv = $("<div>");  // Creating a div for the gif
+          
+            var emoImage = $("<img>"); // Creating an image tag
+            emoImage.addClass("emo");    
+            emoImage.attr("src", results[i].images.fixed_height.url);   // Giving the image tag an src attribute of a proprty pulled off the result item
+            var rating = results[i].rating;    // Storing the result item's rating               
+            var ratingText = $("<p>").text("Rating: " + rating);    // Creating a paragraph tag with the result item's rating
+            ratingText.addClass("rate");
             // Appending the paragraph and personImage we created to the "gifDiv" div we created
            // gifDiv.append(ratingBox);
             gifDiv.append(emoImage);
-
+            gifDiv.append(ratingText);
             // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
             $("#gifs-appear-here").prepend(gifDiv);
+          
           }
         }
       
@@ -91,21 +80,5 @@ $(document).on('click', '.feeling', function(event) {
 
     }) 
 
-    $('emoImage').on('click', function() {
- 
-      var $this   = $(this),
-              $index  = $this.index(),
-               
-              $img    = $this.children('img'),
-              $imgSrc = $img.attr('src'),
-              $imgAlt = $img.attr('data-alt'),
-              $imgExt = $imgAlt.split('.');
-               
-      if($imgExt[1] === 'gif') {
-          $img.attr('src', $img.data('alt')).attr('data-alt', $imgSrc);
-      } else {
-          $img.attr('src', $imgAlt).attr('data-alt', $img.data('alt'));
-      }
-     
-    });
+   
   });

@@ -9,7 +9,9 @@ button,
       background-color: lightgray;
       font-family: arial;
       font-size: 16px;
-      border-radius:20%;
+      border-radius:10%;
+      padding:5px;
+      margin-bottom: 10px;
     } 
 button:hover{
   background: orange;
@@ -17,16 +19,30 @@ button:hover{
 
     
 img.emo{
-  float: left;
+  float:left;
   margin: 10px;
   border-width: 2px;   
   border-color: yellow;   
   border-style: solid;
   box-shadow: 3px 13px 90px 17px rgba(0,0,0,0.68);
   border-radius: 10%;
+  clear:both;
+  position: relative;
 
 }
-
+p.rate{
+  float:left;
+  color:white;
+  border-width: 2px;   
+  border-color: orange;   
+  border-style: solid;
+  clear:both;
+  background-color: black;
+  padding:10px;
+  border-radius:10%;
+  
+  
+}
 
 .container{
   max-width:1050px;
