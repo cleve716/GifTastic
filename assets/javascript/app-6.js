@@ -61,7 +61,11 @@ $(document).on('click', '.feeling', function(event) { // when a feeling button i
             var gifDiv = $("<div>");  // creates a div for the gif          
             var emoImage = $("<img>"); // creates an image tag
             emoImage.addClass("emo"); //adds a class
-            emoImage.attr("src", results[i].images.fixed_height.url);   // gives the image tag a src attribute from the results
+            emoImage.attr("src", results[i].images.fixed_height_still.url)   // gives the image tag a src attribute from the results
+            .attr('data-still', results[i].images.fixed_height_still.url)
+            .attr('data-animate', results[i].images.fixed_height.url)
+            .attr('data-state', "still")
+            .addClass("showImage");
             var rating = results[i].rating;    // stores the result item's rating               
             var ratingText = $("<p>").text("Rating: " + rating);    // creates a paragraph tag with the result item's rating
             ratingText.addClass("rate"); // adds a class
@@ -73,7 +77,23 @@ $(document).on('click', '.feeling', function(event) { // when a feeling button i
           
           }
         }
-      
+        $("#gifs-appear-here").on("click", ".showImage", function(event){
+          event.preventDefault();
+          
+          // gets the current state of the clicked gif 
+          var state = $(this).attr("data-state");
+          
+          // according to the current state gifs toggle between animate and still 
+          if (state === "animate") {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+          } else {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+          }
+        
+        })
+           
       });
 
     }) 
