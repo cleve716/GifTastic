@@ -31,16 +31,16 @@ $( document ).ready(function(){
   
 
 
-$(document).on('click', '.feeling', function(event) {
- event.preventDefault();
- var feelingButton = $(this).html();    
+$(document).on('click', '.feeling', function(event) { // when a feeling button is clicked
+ event.preventDefault();                           
+ var feelingButton = $(this).html();    // the text value is grabbed 
 
     console.log(feelingButton);
   
 
 
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-      feelingButton + "&api_key=dc6zaTOxFJmzC&limit=3";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + // feeling text is inserted into url
+      feelingButton + "&api_key=wbNAtcTUxiusq5brJ0iWhPTHcFmiVwpw&limit=3";
       console.log(queryURL)
    
     $.ajax({  //AJAX GET request
@@ -49,29 +49,27 @@ $(document).on('click', '.feeling', function(event) {
     })
 
     .then(function(response) {
-        // Storing an array of results in the results variable
+        
         console.log(response);
      
-        var results = response.data;
+        var results = response.data; // stores an array of results in the results variable
         //$("#gifs-appear-here").empty();
        
         for (var i = 0; i < results.length; i++) {   // Looping over every result item
           
           if (results[i].rating !== "r" && results[i].rating !== "pg-13") { //only continue if g or pg
-            var gifDiv = $("<div>");  // Creating a div for the gif
-          
-            var emoImage = $("<img>"); // Creating an image tag
-            emoImage.addClass("emo");    
-            emoImage.attr("src", results[i].images.fixed_height.url);   // Giving the image tag an src attribute of a proprty pulled off the result item
-            var rating = results[i].rating;    // Storing the result item's rating               
-            var ratingText = $("<p>").text("Rating: " + rating);    // Creating a paragraph tag with the result item's rating
-            ratingText.addClass("rate");
-            // Appending the paragraph and personImage we created to the "gifDiv" div we created
-           // gifDiv.append(ratingBox);
-            gifDiv.append(emoImage);
-            gifDiv.append(ratingText);
-            // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
-            $("#gifs-appear-here").prepend(gifDiv);
+            var gifDiv = $("<div>");  // creates a div for the gif          
+            var emoImage = $("<img>"); // creates an image tag
+            emoImage.addClass("emo"); //adds a class
+            emoImage.attr("src", results[i].images.fixed_height.url);   // gives the image tag a src attribute from the results
+            var rating = results[i].rating;    // stores the result item's rating               
+            var ratingText = $("<p>").text("Rating: " + rating);    // creates a paragraph tag with the result item's rating
+            ratingText.addClass("rate"); // adds a class
+            
+         
+            gifDiv.append(emoImage);   // appends the paragraph and emoImage to the "gifDiv" 
+            gifDiv.append(ratingText);           
+            $("#gifs-appear-here").prepend(gifDiv);   // prepends the gifDiv to the "#gifs-appear-here" div in the HTML
           
           }
         }
